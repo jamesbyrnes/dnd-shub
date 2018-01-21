@@ -35,3 +35,5 @@ The following commands are available through DND-SHUB:
  * ```/d 2d20+5``` will roll two twenty-sided dice and add 5 to the total of that roll.
  * ```/d 1d6 2d10``` will roll one six-sided die and two ten-sided dice.
  * ```/d 4d2 1d20-6``` will roll four two-sided dice (i.e. coins) and one twenty-sided die, subtracting 6 from the roll of the twenty-sided die only.
+
+Player management coming soon!
