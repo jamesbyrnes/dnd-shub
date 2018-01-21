@@ -88,28 +88,26 @@ func (d *Dice) Roll(numDice int, numSides int, mod int) {
 }
 
 // Sum returns the sum of all of the dice in the set, as long as the dice are initialized.
-func (d *Dice) Sum() (int, error) {
+func (d *Dice) Sum(includeMod bool) (int, error) {
     if len(d.Values) == 0 {
         return 0, errors.New("Error: Dice set not initialized")
-    } else if len(d.Values) == 1 {
-        return d.Values[0], nil
-    }
+    } 
 
     var sum int
-    for _, v := range d.Values {
-        sum += v
+    
+    if len(d.Values) == 1 {
+        sum = d.Values[0]
+    } else {
+        for _, v := range d.Values {
+            sum += v
+        }
+    }
+
+    if includeMod {
+        return (sum + d.Modifier), nil
     }
 
     return sum, nil
-}
-
-func (d *Dice) SumMod() (int, error) {
-    sum, err := d.Sum()
-    if err != nil {
-        return 0, err
-    }
-
-    return sum + d.Modifier, nil
 }
 
 // NumDice returns the number of dice in the set.
@@ -152,13 +150,14 @@ func (d *Dice) GetFullString() (string, error) {
     }
 
     var sum int
-    sum, err = d.Sum()
+    sum, err = d.Sum(false)
     if err != nil {
         return "", err
     }
 
+    //TODO - this seems silly - better to just do sum + d.Mod?
     var sumMod int
-    sumMod, err = d.SumMod()
+    sumMod, err = d.Sum(true)
     if err != nil {
         return "", err
     }

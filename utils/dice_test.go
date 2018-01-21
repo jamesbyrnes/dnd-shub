@@ -76,7 +76,7 @@ func TestNumDiceManyToMany(t *testing.T) {
 func TestSumIsCorrect(t *testing.T) {
     d := new(Dice)
     d.Build("5d1")
-    s, _ := d.Sum()
+    s, _ := d.Sum(false)
     if s != 5 {
         t.Errorf("Expected sum of 5; got %d instead", s)
     }
@@ -93,7 +93,7 @@ func TestNegModIsNegative(t *testing.T) {
 func TestModifier(t *testing.T) {
     d := new(Dice)
     d.Build("1d1+5")
-    sm, err := d.SumMod()
+    sm, err := d.Sum(true)
     if err != nil {
         t.Errorf("Sum + mod gave an error %s", err)
     }
